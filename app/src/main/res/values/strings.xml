@@ -3,4 +3,5 @@
     <string name="title_home">Home</string>
     <string name="title_contracts">Contracts</string>
     <string name="title_query_invoke">Query/Invoke</string>
+    <string name="title_activity_query_invoke">QueryInvokeActivity</string>
 </resources>
