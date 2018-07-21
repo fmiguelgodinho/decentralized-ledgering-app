@@ -1,6 +1,7 @@
 package unl.fct.fgodinho.dslapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +11,10 @@ import android.view.MenuItem;
 public abstract class BottomNavigationBaseActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     protected BottomNavigationView navigationView;
+    protected SharedPreferences prefs;
+
+
+    public static final String CONFIGURATION_SETTINGS = "DSL_CONFIGURATION_SETTINGS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +23,8 @@ public abstract class BottomNavigationBaseActivity extends AppCompatActivity imp
 
         navigationView = (BottomNavigationView) findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
+
+        prefs = getSharedPreferences(CONFIGURATION_SETTINGS, MODE_PRIVATE);
     }
 
     @Override
