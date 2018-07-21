@@ -37,8 +37,8 @@ public abstract class BottomNavigationBaseActivity extends AppCompatActivity imp
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         navigationView.postDelayed(() -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.navigation_home) {
-                startActivity(new Intent(this, HomeActivity.class));
+            if (itemId == R.id.navigation_configure) {
+                startActivity(new Intent(this, ConfigureActivity.class));
             } else if (itemId == R.id.navigation_contracts) {
                 startActivity(new Intent(this, ContractsActivity.class));
             } else if (itemId == R.id.navigation_query_invoke) {
