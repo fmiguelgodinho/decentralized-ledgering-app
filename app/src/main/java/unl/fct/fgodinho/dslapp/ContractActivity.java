@@ -3,22 +3,12 @@ package unl.fct.fgodinho.dslapp;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
+
+import unl.fct.fgodinho.dslapp.util.IOUtil;
 
 public class ContractActivity extends BaseActivity {
 
@@ -42,29 +32,38 @@ public class ContractActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        String result = null;
-//        HttpURLConnection urlConnection = null;
-//
-//        try {
-//            URL requestedUrl = new URL(url);
-//            urlConnection = (HttpURLConnection) requestedUrl.openConnection();
-//            if(urlConnection instanceof HttpsURLConnection) {
-//                ((HttpsURLConnection)urlConnection)
-//                        .setSSLSocketFactory(sslContext.getSocketFactory());
-//            }
-//            urlConnection.setRequestMethod("GET");
-//            urlConnection.setConnectTimeout(1500);
-//            urlConnection.setReadTimeout(1500);
-//            lastResponseCode = urlConnection.getResponseCode();
-//            result = IOUtil.readFully(urlConnection.getInputStream());
-//            lastContentType = urlConnection.getContentType();
-//        } catch(Exception ex) {
-//            result = ex.toString();
-//        } finally {
-//            if(urlConnection != null) {
-//                urlConnection.disconnect();
-//            }
-//        }
+
+        // perform URL request to API
+        String result = null;
+        String responseContentType = null;
+        int responseCode = -1;
+        HttpURLConnection urlConnection = null;
+
+        try {
+            // setup https connection to smart hub
+            URL requestedUrl = new URL(smartHubUrl);
+            urlConnection = (HttpURLConnection) requestedUrl.openConnection();
+            if(urlConnection instanceof HttpsURLConnection) {
+                ((HttpsURLConnection)urlConnection).setSSLSocketFactory(sslContext.getSocketFactory());
+            }
+
+            // setup request
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setConnectTimeout(1500);
+            urlConnection.setReadTimeout(1500);
+
+
+            responseCode = urlConnection.getResponseCode();
+            result = IOUtil.readFully(urlConnection.getInputStream());
+            responseContentType = urlConnection.getContentType();
+        } catch(Exception ex) {
+            result = ex.toString();
+            Toast.makeText(getApplicationContext(), "Error performing HTTP request to " + smartHubUrl + ", " + result, Toast.LENGTH_LONG).show();
+        } finally {
+            if(urlConnection != null) {
+                urlConnection.disconnect();
+            }
+        }
     }
 
 }
