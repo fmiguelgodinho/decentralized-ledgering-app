@@ -1,6 +1,6 @@
 package unl.fct.fgodinho.dslapp;
 
-public class QueryInvokeActivity extends BottomNavigationBaseActivity {
+public class QueryInvokeActivity extends BaseActivity {
 
 
     @Override

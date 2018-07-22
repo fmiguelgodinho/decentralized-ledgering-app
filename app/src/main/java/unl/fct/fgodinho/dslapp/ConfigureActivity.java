@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ConfigureActivity extends BottomNavigationBaseActivity {
+public class ConfigureActivity extends BaseActivity {
 
     private Button saveConfigBtn;
     private EditText editSmartHub, editChannelName, editContractId;
