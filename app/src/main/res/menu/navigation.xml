@@ -7,7 +7,7 @@
         android:title="@string/title_configure"/>
 
     <item
-        android:id="@+id/navigation_contracts"
+        android:id="@+id/navigation_contract"
         android:icon="@drawable/ic_contract_black_24dp"
         android:title="@string/title_contracts"/>
 

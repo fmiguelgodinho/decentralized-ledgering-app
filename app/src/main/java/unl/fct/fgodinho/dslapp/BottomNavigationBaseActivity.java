@@ -13,6 +13,7 @@ public abstract class BottomNavigationBaseActivity extends AppCompatActivity imp
     protected BottomNavigationView navigationView;
     protected SharedPreferences prefs;
 
+    protected String smartHubUrl, channelName, contractId;
 
     public static final String CONFIGURATION_SETTINGS = "DSL_CONFIGURATION_SETTINGS";
 
@@ -21,10 +22,16 @@ public abstract class BottomNavigationBaseActivity extends AppCompatActivity imp
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
 
-        navigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
 
+        // load share prefs
         prefs = getSharedPreferences(CONFIGURATION_SETTINGS, MODE_PRIVATE);
+
+        // fetch possibly stored values from shared prefs
+        smartHubUrl = prefs.getString("smartHubUrl", null);
+        channelName = prefs.getString("channelName", null);
+        contractId = prefs.getString("contractId", null);
     }
 
     @Override
@@ -46,8 +53,8 @@ public abstract class BottomNavigationBaseActivity extends AppCompatActivity imp
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_configure) {
                 startActivity(new Intent(this, ConfigureActivity.class));
-            } else if (itemId == R.id.navigation_contracts) {
-                startActivity(new Intent(this, ContractsActivity.class));
+            } else if (itemId == R.id.navigation_contract) {
+                startActivity(new Intent(this, ContractActivity.class));
             } else if (itemId == R.id.navigation_query_invoke) {
                 startActivity(new Intent(this, QueryInvokeActivity.class));
             }

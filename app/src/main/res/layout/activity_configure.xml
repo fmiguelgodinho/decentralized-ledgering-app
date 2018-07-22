@@ -40,7 +40,6 @@
             </EditText>
         </LinearLayout>
 
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -60,11 +59,31 @@
             </EditText>
         </LinearLayout>
 
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Contract"/>
+            <EditText
+                android:id="@+id/contract_id"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_margin="16dp"
+                android:hint="xcc"
+                android:inputType="text">
+            </EditText>
+        </LinearLayout>
+
         <Button
             android:id="@+id/save_configuration"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="Save configuration" />
+            android:text="Confirm" />
     </LinearLayout>
 
 

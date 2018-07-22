@@ -11,48 +11,51 @@ import android.widget.Toast;
 public class ConfigureActivity extends BottomNavigationBaseActivity {
 
     private Button saveConfigBtn;
-    private EditText editSmartHub, editChannelName;
+    private EditText editSmartHub, editChannelName, editContractId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         editSmartHub = findViewById(R.id.smart_hub_address);
         editChannelName = findViewById(R.id.channel_name);
-        saveConfigBtn = findViewById(R.id.save_configuration);
+        editContractId = findViewById(R.id.contract_id);
 
+        // if content exists, put in inputs and block
+        if (smartHubUrl != null && channelName != null && contractId != null) {
+            editSmartHub.setText(smartHubUrl);
+            editChannelName.setText(channelName);
+            editContractId.setText(contractId);
+        }
+
+        saveConfigBtn = findViewById(R.id.save_configuration);
         // set a listener to the btn
         saveConfigBtn.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
 
-                ;
-
                 if(TextUtils.isEmpty(editSmartHub.getText())) {
-                    //editSmartHub.setError("First name is required!");
+                    editSmartHub.setError("Fill in smart hub address!");
                     Toast.makeText(getApplicationContext(), "Smart Hub address is empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(editChannelName.getText())) {
-                    //editSmartHub.setError("First name is required!");
+                    editChannelName.setError("Fill in channel name!");
                     Toast.makeText(getApplicationContext(), "Channel name is empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(TextUtils.isEmpty(editContractId.getText())) {
+                    editContractId.setError("Fill in contract ID!");
+                    Toast.makeText(getApplicationContext(), "Contract ID is empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("smartHubUrl", editSmartHub.getText().toString());
                 editor.putString("channelName", editChannelName.getText().toString());
+                editor.putString("contractId", editContractId.getText().toString());
                 editor.apply();
             }
         });
-
-        // fetch possibly stored values from shared prefs
-        String smartHubUrl = prefs.getString("smartHubUrl", null);
-        String channelName = prefs.getString("channelName", null);
-
-        // if content exists, put in inputs and block
-        if (smartHubUrl != null && channelName != null) {
-            editSmartHub.setText(smartHubUrl);
-            editChannelName.setText(channelName);
-        }
     }
 
     @Override
