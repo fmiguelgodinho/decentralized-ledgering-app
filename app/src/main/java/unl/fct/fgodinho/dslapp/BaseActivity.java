@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -69,6 +70,20 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
         smartHubUrl = prefs.getString("smartHubUrl", null);
         channelName = prefs.getString("channelName", null);
         contractId = prefs.getString("contractId", null);
+
+
+
+        // if any of these does not exist, disable other tabs (as they will make url requests)
+        if (smartHubUrl == null || channelName == null || contractId == null) {
+
+            Menu menuNav = navigationView.getMenu();
+
+            MenuItem menuItemNavContract = menuNav.findItem(R.id.navigation_contract);
+            menuItemNavContract.setEnabled(false);
+
+            MenuItem menuItemNavQueryInvoke = menuNav.findItem(R.id.navigation_query_invoke);
+            menuItemNavQueryInvoke.setEnabled(false);
+        }
     }
 
     @Override

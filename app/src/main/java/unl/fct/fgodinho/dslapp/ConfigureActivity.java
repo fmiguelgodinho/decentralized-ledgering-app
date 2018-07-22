@@ -1,8 +1,11 @@
 package unl.fct.fgodinho.dslapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,11 +52,24 @@ public class ConfigureActivity extends BaseActivity {
                     return;
                 }
 
+                // save configs
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("smartHubUrl", editSmartHub.getText().toString());
                 editor.putString("channelName", editChannelName.getText().toString());
                 editor.putString("contractId", editContractId.getText().toString());
                 editor.apply();
+
+                // enable tabs
+                Menu menuNav = navigationView.getMenu();
+
+                MenuItem menuItemNavContract = menuNav.findItem(R.id.navigation_contract);
+                menuItemNavContract.setEnabled(true);
+
+                MenuItem menuItemNavQueryInvoke = menuNav.findItem(R.id.navigation_query_invoke);
+                menuItemNavQueryInvoke.setEnabled(true);
+
+                // change to contract tab
+                navigationView.setSelectedItemId(R.id.navigation_contract);
             }
         });
     }
