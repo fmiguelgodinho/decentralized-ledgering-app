@@ -16,12 +16,15 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 
 public abstract class BaseActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -51,9 +54,17 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
             kmf.init(keyStore, "sparkmeup".toCharArray());
             KeyManager[] keyManagers = kmf.getKeyManagers();
 
+            // load truststore from android storage
+            is = getApplicationContext().getAssets().open("clienttruststore.p12");
+            KeyStore trustStore = KeyStore.getInstance("PKCS12");
+            trustStore.load(is, "sparkmeup".toCharArray());
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
+            tmf.init(trustStore);
+            TrustManager[] trustManagers = tmf.getTrustManagers();
+
             // setup ssl context
-            sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(keyManagers, null, null);
+            sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(keyManagers, trustManagers, new SecureRandom());
 
         } catch (IOException | CertificateException | UnrecoverableKeyException
                 | NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
