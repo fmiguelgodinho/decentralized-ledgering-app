@@ -1,13 +1,13 @@
 package unl.fct.fgodinho.dslapp.network;
 
-public class HTTPSResult {
+public class ApiHttpsRequestResult {
 
     // TODO: refactor this into a json result that is able to parse SH replies
 
     private int statusCode;
     private String content, contentType;
 
-    public HTTPSResult(int statusCode, String content, String contentType) {
+    public ApiHttpsRequestResult(int statusCode, String content, String contentType) {
         this.statusCode = statusCode;
         this.content = content;
         this.contentType = contentType;
