@@ -95,9 +95,14 @@ public class QueryInvokeActivity extends BaseActivity {
                                     // an error occurred
                                     resultContainerView.setText("An error occurred: " + opResultRootJson.getString("error"));
                                 } else {
-                                    String opResult = opResultRootJson.getString("result");
+
+                                    if (selectedOpType == 0) {
+                                        String opResult = opResultRootJson.getString("result");
+                                        resultContainerView.setText(opResult);
+                                    } else {
+                                        resultContainerView.setText("Successful invoked " + fnId);
+                                    }
                                     JSONArray signaturesResult = opResultRootJson.getJSONArray("signatures");
-                                    resultContainerView.setText(opResult);
                                     signaturesContainerView.setText(signaturesResult.toString());
                                 }
                             } catch (JSONException je) {
