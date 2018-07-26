@@ -8,6 +8,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -31,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     protected SSLContext sslContext;
     protected SharedPreferences prefs;
     protected BottomNavigationView navigationView;
+    protected ProgressBar progressBar;
 
     protected String smartHubHostname, channelName, contractId;
 
@@ -82,7 +85,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
         channelName = prefs.getString("channelName", null);
         contractId = prefs.getString("contractId", null);
 
-
+        // get progress bar ref
+        progressBar = findViewById(R.id.progress_bar);
 
         // if any of these does not exist, disable other tabs (as they will make url requests)
         if (smartHubHostname == null || channelName == null || contractId == null) {
@@ -114,6 +118,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         navigationView.postDelayed(() -> {
             int itemId = item.getItemId();
+
+            progressBar.setVisibility(View.VISIBLE);
             if (itemId == R.id.navigation_configure) {
                 startActivity(new Intent(this, ConfigureActivity.class));
             } else if (itemId == R.id.navigation_contract) {
@@ -122,7 +128,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
                 startActivity(new Intent(this, QueryInvokeActivity.class));
             }
             finish();
-        }, 300);
+        }, 0);
         return true;
     }
 

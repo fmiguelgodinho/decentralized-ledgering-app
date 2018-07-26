@@ -22,6 +22,7 @@ public class ContractActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // get UI refs
         contractView = findViewById(R.id.contract_view);
         contractHashView = findViewById(R.id.contract_hash);
@@ -31,6 +32,9 @@ public class ContractActivity extends BaseActivity {
         // set a listener to the btn
         acceptSignBtn.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
+
+
+                progressBar.setVisibility(View.VISIBLE);
 
                 if(TextUtils.isEmpty(contractView.getText()) || TextUtils.isEmpty(contractHashView.getText())) {
                     Toast.makeText(getApplicationContext(), "No contract to accept!", Toast.LENGTH_SHORT).show();
@@ -65,6 +69,8 @@ public class ContractActivity extends BaseActivity {
                             }
                         }
 
+                        progressBar.setVisibility(View.GONE);
+
                     }
                 }).execute(sslContext, invocationUrl, "POST", "dasdlascnlajs"); // TODO: sign
             }
@@ -86,6 +92,8 @@ public class ContractActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
+
+        progressBar.setVisibility(View.VISIBLE);
         String invocationUrl = "https://" + smartHubHostname + "/api/" + channelName + "/contract/" + contractId;
 
         // fire an http request to the sh
@@ -115,6 +123,8 @@ public class ContractActivity extends BaseActivity {
                     } catch (JSONException je) {
                         Toast.makeText(getApplicationContext(), "Error interpreting JSON response: " + je.toString(), Toast.LENGTH_LONG).show();
                     }
+
+                    progressBar.setVisibility(View.GONE);
                 }
 
             }

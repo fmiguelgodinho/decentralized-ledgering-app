@@ -39,7 +39,7 @@ public class QueryInvokeActivity extends BaseActivity {
         editFunctionParameters = findViewById(R.id.function_parameters);
         resultContainerView = findViewById(R.id.result_container);
         signaturesContainerView = findViewById(R.id.signatures_container);
-        queryInvokeBtn = findViewById(R.id.invoke);
+        queryInvokeBtn = findViewById(R.id.invoke_query);
 
         // setup combo
         ArrayAdapter<String> adapter = new ArrayAdapter<>(QueryInvokeActivity.this, android.R.layout.simple_spinner_item, opTypes);
@@ -49,6 +49,7 @@ public class QueryInvokeActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 selectedOpType = position;
+                queryInvokeBtn.setText((selectedOpType == 0? "Query" : "Invoke"));
             }
 
             @Override
@@ -73,6 +74,7 @@ public class QueryInvokeActivity extends BaseActivity {
                     fnParameters = editFunctionParameters.getText().toString();
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
 
                 // send sign req
                 String invocationUrl = "https://" + smartHubHostname + "/api/" + channelName + "/contract/" + contractId + "/"
@@ -102,6 +104,9 @@ public class QueryInvokeActivity extends BaseActivity {
                                 Toast.makeText(getApplicationContext(), "Error interpreting JSON response: " + je.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
+
+
+                        progressBar.setVisibility(View.GONE);
 
                     }
                 }).execute(sslContext, invocationUrl, "POST", "operationId=" + fnId + "&operationArgs=" + fnParameters);

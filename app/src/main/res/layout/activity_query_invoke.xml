@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".QueryInvokeActivity">
 
+    <include
+        android:id="@+id/progress_bar"
+        layout="@layout/component_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -82,10 +90,10 @@
 
 
             <Button
-                android:id="@+id/invoke"
+                android:id="@+id/invoke_query"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Invoke" />
+                android:text="Query" />
 
             <TextView
                 android:layout_width="wrap_content"
