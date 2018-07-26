@@ -33,7 +33,7 @@ public class ContractActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
-        String invocationUrl = smartHubUrl + "/api/" + channelName + "/contract/" + contractId;
+        String invocationUrl = "https://" + smartHubUrl + "/api/" + channelName + "/contract/" + contractId;
 
         // fire an http request to the sh
         new ApiHttpsRequest(new ApiHttpsRequest.ApiHttpsRequestDelegate() {

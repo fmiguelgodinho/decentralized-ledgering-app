@@ -29,13 +29,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Hub URL"/>
+                android:text="Hub hostname[:port]"/>
             <EditText
                 android:id="@+id/smart_hub_address"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
                 android:layout_margin="16dp"
-                android:hint="https://127.0.0.1:8888/"
+                android:hint="127.0.0.1:8888"
                 android:inputType="textUri">
             </EditText>
         </LinearLayout>
