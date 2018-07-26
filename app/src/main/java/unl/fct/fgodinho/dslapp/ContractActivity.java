@@ -10,8 +10,12 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import unl.fct.fgodinho.dslapp.network.ApiHttpsRequest;
 import unl.fct.fgodinho.dslapp.network.ApiHttpsRequestResult;
+import unl.fct.fgodinho.dslapp.util.SigningUtil;
 
 public class ContractActivity extends BaseActivity {
 
@@ -39,6 +43,19 @@ public class ContractActivity extends BaseActivity {
                 if(TextUtils.isEmpty(contractView.getText()) || TextUtils.isEmpty(contractHashView.getText())) {
                     Toast.makeText(getApplicationContext(), "No contract to accept!", Toast.LENGTH_SHORT).show();
                     return;
+                }
+
+                String contractHashSignature = null;
+                try {
+                    contractHashSignature = new String(SigningUtil.sign(
+                            contractHashView.getText().toString().trim().getBytes(),
+                            privKey.getEncoded()
+                    ), "UTF-8");
+
+                    contractHashSignature = URLEncoder.encode(contractHashSignature, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    Toast.makeText(getApplicationContext(), "Error while signing contract!", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
 
                 // send sign req
@@ -72,7 +89,7 @@ public class ContractActivity extends BaseActivity {
                         progressBar.setVisibility(View.GONE);
 
                     }
-                }).execute(sslContext, invocationUrl, "POST", "dasdlascnlajs"); // TODO: sign
+                }).execute(sslContext, invocationUrl, "POST", "signature=" + contractHashSignature);
             }
         });
     }

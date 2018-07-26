@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Key;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -34,6 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     protected SharedPreferences prefs;
     protected BottomNavigationView navigationView;
     protected ProgressBar progressBar;
+    protected Key privKey;
 
     protected String smartHubHostname, channelName, contractId;
 
@@ -56,6 +58,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
             KeyManagerFactory kmf = KeyManagerFactory.getInstance("X509");
             kmf.init(keyStore, "sparkmeup".toCharArray());
             KeyManager[] keyManagers = kmf.getKeyManagers();
+
+            // store priv key for later
+            privKey = keyStore.getKey("client-cert", "sparkmeup".toCharArray());
 
             // load truststore from android storage
             is = getApplicationContext().getAssets().open("clienttruststore.p12");
