@@ -2,8 +2,10 @@ package unl.fct.fgodinho.dslapp.network;
 
 import android.os.AsyncTask;
 
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -30,6 +32,11 @@ public class ApiHttpsRequest extends AsyncTask<Object, Void, ApiHttpsRequestResu
 
         SSLContext sslContext = (SSLContext) params[0];
         String smartHubUrl = (String) params[1];
+        String requestMethod = (String) params[2];                 // GET/POST/...
+        String requestParameters = null;
+        if (params.length > 3) {
+            requestParameters = (String) params[3];
+        }
 
         // perform URL request to API
         String result = null;
@@ -53,10 +60,18 @@ public class ApiHttpsRequest extends AsyncTask<Object, Void, ApiHttpsRequestResu
             }
 
             // setup request
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod(requestMethod);
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setConnectTimeout(1500);
             urlConnection.setReadTimeout(8000);
+
+            // body parameters
+            if (requestParameters != null && !requestParameters.isEmpty() && requestMethod.equals("POST")) {
+                byte[] requestParametersBytes = requestParameters.getBytes("UTF-8");
+                OutputStream os = urlConnection.getOutputStream();
+                os.write(requestParametersBytes);
+                os.close();
+            }
 
             responseCode = urlConnection.getResponseCode();
             result = IOUtil.readFully(urlConnection.getInputStream());

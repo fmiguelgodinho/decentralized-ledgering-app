@@ -4,4 +4,5 @@
     <string name="title_contracts">Contract</string>
     <string name="title_query_invoke">Query/Invoke</string>
     <string name="title_activity_query_invoke">QueryInvokeActivity</string>
+    <string name="complementary_msg_accept_sign">Accepting this contract will imply signing the above hash. This information will be submitted to the service, as to allow you to invoke operations and query over this contract.</string>
 </resources>

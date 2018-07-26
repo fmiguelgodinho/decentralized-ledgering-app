@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
     protected SharedPreferences prefs;
     protected BottomNavigationView navigationView;
 
-    protected String smartHubUrl, channelName, contractId;
+    protected String smartHubHostname, channelName, contractId;
 
     public static final String CONFIGURATION_SETTINGS = "DSL_CONFIGURATION_SETTINGS";
 
@@ -78,14 +78,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
         navigationView.setOnNavigationItemSelectedListener(this);
 
         // fetch possibly stored values from shared prefs
-        smartHubUrl = prefs.getString("smartHubUrl", null);
+        smartHubHostname = prefs.getString("smartHubHostname", null);
         channelName = prefs.getString("channelName", null);
         contractId = prefs.getString("contractId", null);
 
 
 
         // if any of these does not exist, disable other tabs (as they will make url requests)
-        if (smartHubUrl == null || channelName == null || contractId == null) {
+        if (smartHubHostname == null || channelName == null || contractId == null) {
 
             Menu menuNav = navigationView.getMenu();
 

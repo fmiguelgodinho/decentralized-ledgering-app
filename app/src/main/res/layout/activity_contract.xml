@@ -58,11 +58,12 @@
                 android:text="Accept &amp; Sign" />
 
             <TextView
+                android:id="@+id/accept_sign_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:textStyle="italic"
-                android:text="Accepting this contract will imply signing the above hash. This information will be submitted to the service, as to allow you to invoke operations and query over this contract."
+                android:text="@string/complementary_msg_accept_sign"
                 />
         </LinearLayout>
 

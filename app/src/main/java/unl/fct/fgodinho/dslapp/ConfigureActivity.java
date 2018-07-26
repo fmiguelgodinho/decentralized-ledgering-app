@@ -1,6 +1,5 @@
 package unl.fct.fgodinho.dslapp;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,8 +23,8 @@ public class ConfigureActivity extends BaseActivity {
         editContractId = findViewById(R.id.contract_id);
 
         // if content exists, put in inputs and block
-        if (smartHubUrl != null && channelName != null && contractId != null) {
-            editSmartHub.setText(smartHubUrl);
+        if (smartHubHostname != null && channelName != null && contractId != null) {
+            editSmartHub.setText(smartHubHostname);
             editChannelName.setText(channelName);
             editContractId.setText(contractId);
         }
@@ -54,7 +53,7 @@ public class ConfigureActivity extends BaseActivity {
 
                 // save configs
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("smartHubUrl", editSmartHub.getText().toString());
+                editor.putString("smartHubHostname", editSmartHub.getText().toString());
                 editor.putString("channelName", editChannelName.getText().toString());
                 editor.putString("contractId", editContractId.getText().toString());
                 editor.apply();
