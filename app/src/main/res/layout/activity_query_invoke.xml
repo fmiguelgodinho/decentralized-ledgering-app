@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".QueryInvokeActivity">
 
-
-
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="48dp">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
@@ -24,6 +23,25 @@
                 android:textStyle="bold"
                 android:text="Fill in querying/invocation details:"
                 />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="Function type"/>
+
+                <Spinner
+                    android:id="@+id/op_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"/>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -44,11 +62,56 @@
                 </EditText>
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="Parameters"/>
+                <EditText
+                    android:id="@+id/function_parameters"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:hint="['1239883', '{'foo':'bar','test':123}']"
+                    android:inputType="text|textMultiLine"/>
+            </LinearLayout>
+
+
+
             <Button
                 android:id="@+id/invoke"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="Invoke" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textStyle="bold"
+                android:text="Query/invocation result:"/>
+            <TextView
+                android:id="@+id/result_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Nothing yet."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textStyle="bold"
+                android:text="Peer endorsement signatures:"/>
+            <TextView
+                android:id="@+id/signatures_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Nothing yet."/>
         </LinearLayout>
 
     </ScrollView>

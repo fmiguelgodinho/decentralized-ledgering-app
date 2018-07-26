@@ -63,7 +63,7 @@ public class ApiHttpsRequest extends AsyncTask<Object, Void, ApiHttpsRequestResu
             urlConnection.setRequestMethod(requestMethod);
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setConnectTimeout(1500);
-            urlConnection.setReadTimeout(8000);
+            urlConnection.setReadTimeout(15000);
 
             // body parameters
             if (requestParameters != null && !requestParameters.isEmpty() && requestMethod.equals("POST")) {
